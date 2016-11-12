@@ -1,0 +1,7 @@
+<tr>
+    <td><input type="date" #dateInput class="form-control"></td>
+    <td><input type="text" #infoInput class="form-control"></td>
+    <td><input type="text" #clientInput class="form-control"></td>
+    <td><input type="number" #timeInput class="form-control"></td>
+    <td colspan="2" ><button class="btn btn-md btn-block btn-primary" (click)="add(dateInput.value, infoInput.value, clientInput.value, timeInput.value); dateInput.value = ''; infoInput.value =''; clientInput.value =''; timeInput.value ='';">Add new task!</button></td>
+</tr>

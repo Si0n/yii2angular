@@ -1,0 +1,23 @@
+<nav class="ui attached menu">
+    <div class="ui container">
+        <div class="header item">
+            <h1><i class="checkmark box icon"></i> {{ title }}</h1>
+        </div>
+    </div>
+</nav>
+
+<table class="table table-hovered">
+    <thead>
+        <tr>
+            <td>{{column.date}}</td>
+            <td>{{column.task}}</td>
+            <td>{{column.client}}</td>
+            <td>{{column.time_spent}}</td>
+            <td>{{column.over_time}}</td>
+            <td>Удалить?</td>
+        </tr>
+    </thead>
+    <tbody  task-list>
+    </tbody>
+    <tfoot task-form (added)="onTaskAdded($event)"></tfoot>
+</table>
