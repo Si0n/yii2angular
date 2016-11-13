@@ -10,14 +10,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var task_1 = require('./task');
+var task_service_1 = require('./../service/task.service');
 var TaskFormComponent = (function () {
-    function TaskFormComponent() {
+    function TaskFormComponent(taskService) {
+        this.taskService = taskService;
         this.added = new core_1.EventEmitter();
     }
     TaskFormComponent.prototype.add = function (date, info, client, time_spent) {
         if (date && info && client, time_spent) {
             var task = new task_1.Task(date, info, client, time_spent);
-            this.added.emit(task);
+            this.taskService.create(task);
         }
     };
     __decorate([
@@ -28,9 +30,10 @@ var TaskFormComponent = (function () {
         core_1.Component({
             selector: '[task-form]',
             templateUrl: './app/template/task-form.html',
-            styleUrls: ['./style.css']
+            styleUrls: ['./style.css'],
+            providers: [task_service_1.TaskService]
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [task_service_1.TaskService])
     ], TaskFormComponent);
     return TaskFormComponent;
 }());

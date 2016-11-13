@@ -27,16 +27,16 @@ export class TaskService {
             .catch(this.handleError);
     }
 
-    create(date: HTMLInputElement, info: HTMLInputElement, client: HTMLInputElement, time_spent: HTMLInputElement): Promise<Task> {
+    create(task: Task): Promise<Task> {
         return this.http
-            .post(this.tasksUrl, JSON.stringify(new Task(date, info, client, time_spent)), {headers: this.headers})
+            .post(this.tasksUrl, JSON.stringify(task), {headers: this.headers})
             .toPromise()
             .then(res => res.json().data)
             .catch(this.handleError);
     }
 
     update(task: Task): Promise<Task> {
-        const url = `${this.tasksUrl}/${task.id}`;
+        const url = `${this.tasksUrl}/${task.task_id}`;
         return this.http
             .put(url, JSON.stringify(task), {headers: this.headers})
             .toPromise()

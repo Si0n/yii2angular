@@ -13,7 +13,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  */
 var core_1 = require('@angular/core');
 var http_1 = require('@angular/http');
-var task_1 = require('./../component/task');
 var Observable_1 = require('rxjs/Observable');
 require('rxjs/add/operator/toPromise');
 var TaskService = (function () {
@@ -35,15 +34,15 @@ var TaskService = (function () {
             .then(function () { return null; })
             .catch(this.handleError);
     };
-    TaskService.prototype.create = function (date, info, client, time_spent) {
+    TaskService.prototype.create = function (task) {
         return this.http
-            .post(this.tasksUrl, JSON.stringify(new task_1.Task(date, info, client, time_spent)), { headers: this.headers })
+            .post(this.tasksUrl, JSON.stringify(task), { headers: this.headers })
             .toPromise()
             .then(function (res) { return res.json().data; })
             .catch(this.handleError);
     };
     TaskService.prototype.update = function (task) {
-        var url = this.tasksUrl + "/" + task.id;
+        var url = this.tasksUrl + "/" + task.task_id;
         return this.http
             .put(url, JSON.stringify(task), { headers: this.headers })
             .toPromise()
