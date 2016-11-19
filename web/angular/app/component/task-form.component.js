@@ -20,6 +20,7 @@ var TaskFormComponent = (function () {
         if (date && info && client, time_spent) {
             var task = new task_1.Task(date, info, client, time_spent);
             this.taskService.create(task);
+            this.added.emit(task);
         }
     };
     __decorate([

@@ -21,7 +21,7 @@ export class TaskFormComponent {
         if (date && info && client, time_spent) {
             let task = new Task(date, info, client, time_spent);
             this.taskService.create(task);
-            //this.added.emit(task);
+            this.added.emit(task);
         }
     }
 }

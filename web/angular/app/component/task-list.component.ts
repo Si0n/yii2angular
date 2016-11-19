@@ -23,9 +23,13 @@ export class TaskListComponent implements OnInit{
                 this.tasks = tasks
             }).then();
     }
-
+    onTaskAdded(task: Task) {
+        console.log(task);
+        this.tasks.push(task);
+    }
 
     onTaskDeleted(task : Task) {
+        console.log(task);
         if (task) {
             let index = this.tasks.indexOf(task);
             if (index > -1) {

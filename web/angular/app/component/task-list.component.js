@@ -25,7 +25,12 @@ var TaskListComponent = (function () {
             _this.tasks = tasks;
         }).then();
     };
+    TaskListComponent.prototype.onTaskAdded = function (task) {
+        console.log(task);
+        this.tasks.push(task);
+    };
     TaskListComponent.prototype.onTaskDeleted = function (task) {
+        console.log(task);
         if (task) {
             var index = this.tasks.indexOf(task);
             if (index > -1) {

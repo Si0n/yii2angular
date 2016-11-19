@@ -18,7 +18,7 @@ require('rxjs/add/operator/toPromise');
 var TaskService = (function () {
     function TaskService(http) {
         this.http = http;
-        this.headers = new http_1.Headers({ 'Content-Type': 'application/json' });
+        this.headers = new http_1.Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
         this.tasksUrl = 'http://yii2.home/tasks'; // URL to web API
     }
     TaskService.prototype.getTasks = function () {
@@ -26,6 +26,12 @@ var TaskService = (function () {
             .toPromise()
             .then(function (response) { return response.json(); })
             .catch(this.handleError);
+    };
+    TaskService.prototype.format = function (task) {
+        var str = [];
+        for (var p in task)
+            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(task[p]));
+        return str.join("&");
     };
     TaskService.prototype.delete = function (id) {
         var url = this.tasksUrl + "/" + id;
@@ -36,7 +42,7 @@ var TaskService = (function () {
     };
     TaskService.prototype.create = function (task) {
         return this.http
-            .post(this.tasksUrl, JSON.stringify(task), { headers: this.headers })
+            .post(this.tasksUrl, this.format(task), { headers: this.headers })
             .toPromise()
             .then(function (res) { return res.json().data; })
             .catch(this.handleError);

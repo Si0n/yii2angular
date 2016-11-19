@@ -9,7 +9,7 @@ import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class TaskService {
-    private headers = new Headers({'Content-Type': 'application/json'});
+    private headers = new Headers({'Content-Type': 'application/x-www-form-urlencoded'});
     private tasksUrl = 'http://yii2.home/tasks';  // URL to web API
     constructor (private http: Http) {}
     getTasks(): Promise<Task[]> {
@@ -18,7 +18,12 @@ export class TaskService {
             .then(response => response.json() as Task[])
             .catch(this.handleError);
     }
-
+    format(task: Task) :string{
+        let str = [];
+        for(let p in task)
+            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(task[p]));
+        return str.join("&");
+    }
     delete(id: number): Promise<void> {
         const url = `${this.tasksUrl}/${id}`;
         return this.http.delete(url, {headers: this.headers})
@@ -29,7 +34,7 @@ export class TaskService {
 
     create(task: Task): Promise<Task> {
         return this.http
-            .post(this.tasksUrl, JSON.stringify(task), {headers: this.headers})
+            .post(this.tasksUrl, this.format(task), {headers: this.headers})
             .toPromise()
             .then(res => res.json().data)
             .catch(this.handleError);
